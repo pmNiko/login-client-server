@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { Nav } from "../components";
+import { ProtectedNav } from "../components";
 
 export const ProtectedLayout = () => {
   return (
     <>
-      <Nav />
+      <ProtectedNav />
       <h4>Bienvenido usuario</h4>
       <Outlet />
     </>

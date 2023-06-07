@@ -1,22 +1,28 @@
 import { NavLink } from "react-router-dom";
-import { useLayoutStore } from "../store/LayoutStore";
 import { Route } from "../router/routes";
 import { useAuthStore } from "../store/AuthStore";
+import { useLayoutStore } from "../store/LayoutStore";
 
-export const Nav = () => {
+export const ProtectedNav = () => {
   const basename = useLayoutStore((state) => state.basename);
   const isAuth = useAuthStore((state) => state.isAuth);
   const reset = useAuthStore((state) => state.reset);
 
   const Nav = {
+    home: `${basename + Route.root}`,
     login: `${basename + Route.auth}`,
-    register: `${basename + Route.auth}/${Route.register}`,
   };
 
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-primary">
       <div style={{ marginLeft: "2em" }}></div>
       <div className="container-fluid">
+        <NavLink
+          to={Nav.home}
+          style={{ color: "white", textDecoration: "none", margin: "auto" }}
+        >
+          Home
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -31,35 +37,24 @@ export const Nav = () => {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div style={{ marginLeft: "2em" }}></div>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <NavLink
-              to={Nav.login}
-              style={{ color: "white", textDecoration: "none", margin: "auto" }}
-            >
-              Login
-            </NavLink>
+            {/* <NavLink
+            to={Nav.login}
+            style={{ color: "white", textDecoration: "none", margin: "auto" }}
+          >
+            Login
+          </NavLink> */}
             <div style={{ marginLeft: "2em" }}></div>
-
-            <NavLink
-              to={Nav.register}
-              style={{
-                color: "white",
-                textDecoration: "none",
-                margin: "auto",
-              }}
-            >
-              Register
-            </NavLink>
           </ul>
 
           <div>
-            {/* <NavLink
+            <NavLink
               hidden={!isAuth}
               to={Nav.login}
               style={{ color: "white", textDecoration: "none", margin: "auto" }}
               onClick={reset}
             >
               Logout
-            </NavLink> */}
+            </NavLink>
           </div>
         </div>
       </div>

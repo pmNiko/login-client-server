@@ -3,6 +3,8 @@ import { FormData } from "../interfaces/types";
 import landscape from "../assets/login.svg";
 import { useAuthStore } from "../store/AuthStore";
 import { loginApi, profileApi } from "../api/auth";
+import { useNavigate } from "react-router-dom";
+import { Route } from "../router/routes";
 
 const initialState: FormData = {
   email: "",
@@ -10,6 +12,7 @@ const initialState: FormData = {
 };
 
 export const Form = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<FormData>(initialState);
   const setToken = useAuthStore((state) => state.setToken);
   const setProfile = useAuthStore((state) => state.setProfile);
@@ -24,6 +27,8 @@ export const Form = () => {
 
     const { email } = await profileApi(token);
     setProfile(email);
+
+    navigate(Route.root);
   };
 
   return (
@@ -35,11 +40,11 @@ export const Form = () => {
               src={landscape}
               className="card-img-top"
               alt="landscape"
-              style={{ height: "30em" }}
+              style={{ height: "25em" }}
             />
             <form>
               <div className="card-body">
-                <h5 className="card-title">Login de usuario</h5>
+                <h5 className="card-title">Login</h5>
                 <div className="form-floating mb-3">
                   <input
                     type="email"

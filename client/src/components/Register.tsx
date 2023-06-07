@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { FormData } from "../interfaces/types";
-import { useAuthStore } from "../store/AuthStore";
-import { loginApi, profileApi } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 import landscape from "../assets/login.svg";
+import { FormData } from "../interfaces/types";
+import { Route } from "../router/routes";
 
 interface RegisterData extends FormData {
   name: string;
@@ -15,20 +15,17 @@ const initialState: RegisterData = {
 };
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<RegisterData>(initialState);
-  const setToken = useAuthStore((state) => state.setToken);
-  const setProfile = useAuthStore((state) => state.setProfile);
 
   const handlerChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
   const onSubmit = async () => {
-    const { token } = await loginApi(form);
-    setToken(token);
+    console.log("Datos del registro: ", JSON.stringify(form));
 
-    const { email } = await profileApi(token);
-    setProfile(email);
+    navigate(Route.auth);
   };
 
   return (
@@ -40,11 +37,11 @@ export const Register = () => {
               src={landscape}
               className="card-img-top"
               alt="landscape"
-              style={{ height: "30em" }}
+              style={{ height: "25em" }}
             />
             <form>
               <div className="card-body">
-                <h5 className="card-title">Login de usuario</h5>
+                <h5 className="card-title">Register</h5>
                 <div className="form-floating mb-3">
                   <input
                     type="text"
@@ -54,7 +51,7 @@ export const Register = () => {
                     name="name"
                     onChange={handlerChange}
                   />
-                  <label htmlFor="floatingInput">Email address</label>
+                  <label htmlFor="floatingInput">Name</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -82,12 +79,12 @@ export const Register = () => {
                     className="btn btn-outline-primary mt-3 mb-5"
                     onClick={onSubmit}
                   >
-                    Iniciar sesión
+                    Enviar Datos
                   </button>
                 </div>
                 <p className="card-text">
                   <small className="text-muted">
-                    Inicie sesión para ingresar al Home
+                    Registrese para continuar
                   </small>
                 </p>
               </div>

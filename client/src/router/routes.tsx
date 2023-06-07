@@ -2,9 +2,15 @@ import { Form, Home, Register } from "../components";
 import { PublicLayout } from "../layout/PublicLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
+export enum Route {
+  root = "/",
+  auth = "/auth",
+  register = "register",
+}
+
 export const routes = [
   {
-    path: "/",
+    path: Route.root,
     element: <ProtectedRoute />,
     children: [
       {
@@ -14,15 +20,15 @@ export const routes = [
     ],
   },
   {
-    path: "/auth",
+    path: Route.auth,
     element: <PublicLayout />,
     children: [
       {
-        index: "login",
+        index: true,
         element: <Form />,
       },
       {
-        path: "register",
+        path: Route.register,
         element: <Register />,
       },
     ],
