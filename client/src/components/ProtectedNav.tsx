@@ -8,17 +8,12 @@ export const ProtectedNav = () => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const reset = useAuthStore((state) => state.reset);
 
-  const Nav = {
-    home: `${basename + Route.root}`,
-    login: `${basename + Route.auth}`,
-  };
-
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-info">
       <div style={{ marginLeft: "2em" }}></div>
       <div className="container-fluid">
         <NavLink
-          to={Nav.home}
+          to={basename}
           style={{ color: "white", textDecoration: "none", margin: "auto" }}
         >
           Home
@@ -49,7 +44,7 @@ export const ProtectedNav = () => {
           <div>
             <NavLink
               hidden={!isAuth}
-              to={Nav.login}
+              to={basename + Route.auth}
               style={{ color: "white", textDecoration: "none", margin: "auto" }}
               onClick={reset}
             >

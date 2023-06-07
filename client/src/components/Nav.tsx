@@ -1,17 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useLayoutStore } from "../store/LayoutStore";
 import { Route } from "../router/routes";
-import { useAuthStore } from "../store/AuthStore";
+import { useLayoutStore } from "../store/LayoutStore";
 
 export const Nav = () => {
   const basename = useLayoutStore((state) => state.basename);
-  const isAuth = useAuthStore((state) => state.isAuth);
-  const reset = useAuthStore((state) => state.reset);
-
-  const Nav = {
-    login: `${basename + Route.auth}`,
-    register: `${basename + Route.auth}/${Route.register}`,
-  };
 
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-primary">
@@ -32,7 +24,7 @@ export const Nav = () => {
           <div style={{ marginLeft: "2em" }}></div>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <NavLink
-              to={Nav.login}
+              to={basename + Route.auth}
               style={{ color: "white", textDecoration: "none", margin: "auto" }}
             >
               Login
@@ -40,7 +32,7 @@ export const Nav = () => {
             <div style={{ marginLeft: "2em" }}></div>
 
             <NavLink
-              to={Nav.register}
+              to={Route.register}
               style={{
                 color: "white",
                 textDecoration: "none",
@@ -51,16 +43,7 @@ export const Nav = () => {
             </NavLink>
           </ul>
 
-          <div>
-            {/* <NavLink
-              hidden={!isAuth}
-              to={Nav.login}
-              style={{ color: "white", textDecoration: "none", margin: "auto" }}
-              onClick={reset}
-            >
-              Logout
-            </NavLink> */}
-          </div>
+          <div></div>
         </div>
       </div>
     </nav>
