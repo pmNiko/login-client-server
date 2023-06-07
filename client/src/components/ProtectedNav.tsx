@@ -14,7 +14,7 @@ export const ProtectedNav = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg  navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg  navbar-dark bg-info">
       <div style={{ marginLeft: "2em" }}></div>
       <div className="container-fluid">
         <NavLink
